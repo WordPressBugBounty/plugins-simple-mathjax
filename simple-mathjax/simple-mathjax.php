@@ -2,9 +2,11 @@
 /*
  * Plugin Name: Simple MathJax
  * Description: Load the mathjax scripts across your wordpress blog
- * Version: 2.1.0
+ * Version: 2.1.1
  * Author: Samuel Coskey, Peter Krautzberger, Christian Lawson-Perfect
  * Author URI: https://boolesrings.org
+ * License: GPLv3
+ * License URI: https://www.gnu.org/licenses/gpl-3.0.txt
  */
 
 class SimpleMathjax {
@@ -82,7 +84,7 @@ class SimpleMathjax {
   public static function configure_mathjax() {
     $options = self::load_options();
     $version = $options['major_version'];
-    $custom_config = wp_kses( $options['custom_mathjax_config'], array() );
+    $custom_config = $options['custom_mathjax_config'];
     $config = $custom_config ? $custom_config : self::$default_configs[$version];
     if($version==2) {
       echo "\n<script type='text/x-mathjax-config'>\n{$config}\n</script>\n";
@@ -223,7 +225,7 @@ class SimpleMathjax {
   public static function config_input() {
     $options = self::load_options();
   ?>
-    <textarea id="custom_mathjax_config" cols="50" rows="10" name="simple_mathjax_options[custom_mathjax_config]"><?= $options['custom_mathjax_config'] ?></textarea>
+    <textarea style="font-family: monospace;" id="custom_mathjax_config" cols="50" rows="10" name="simple_mathjax_options[custom_mathjax_config]"><?= $options['custom_mathjax_config'] ?></textarea>
     <p>This text will be used to configure MathJax. See <a href="https://docs.mathjax.org/en/latest/options/index.html">the documentation on configuring MathJax</a>.</p>
     <p>If you leave this blank, the default will be used, according to the major version of MathJax:</p>
     <dl>
@@ -241,7 +243,7 @@ class SimpleMathjax {
   public static function latex_preamble_input() {
     $options = self::load_options();
   ?>
-    <textarea id="latex_preamble" cols="50" rows="10" name="simple_mathjax_options[latex_preamble]"><?= $options['latex_preamble'] ?></textarea>
+    <textarea style="font-family: monospace;" id="latex_preamble" cols="50" rows="10" name="simple_mathjax_options[latex_preamble]"><?= $options['latex_preamble'] ?></textarea>
     <p>This LaTeX will be run invisibly before any other LaTeX on the page. A good place to put \newcommand's and \renewcommand's</p>
     <p><strong>Do not use $ signs</strong>, they will be added for you.</p>
     <p>E.g.</p>
